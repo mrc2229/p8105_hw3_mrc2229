@@ -20,4 +20,17 @@ data("instacart")
 ##Examining the instacart data
 There are `r nrow (instacart)` observations in the instacart dataset and `r ncol (instacart)` variables in the instacart data set. Some of the key variables are product_name, which shows the product purchased; aisle, which tells us the aisle the purchased item comes from; and order_id, which tells us the id of the person who ordered a certain item. So we can see things like that person with order_id 1 got  `r instacart %>% filter (order_id==1, aisle_id==24) %>% summarise(n_distinct(product_name))` items from aisle 24, the fresh fruit aisle. The instacart dataset also gives information on the time an order was placed. As an example, the person with order_id 1 made their order at the `r instacart %>% filter (order_id==1) %>% summarise(max(order_hour_of_day))`th hour of the day.
 
+##Examining the aisles
 There are `r instacart %>% summarise(n_distinct(aisle))` aisles in total and the most items are ordered from the `r instacart %>% count(aisle,name="aisle_count") %>% mutate(aisle_count_rank = rank(desc(aisle_count))) %>% filter (aisle_count_rank == 1 ) %>% summarise(aisle)` and `r instacart %>% count(aisle,name="aisle_count") %>% mutate(aisle_count_rank = rank(desc(aisle_count))) %>% filter (aisle_count_rank == 2 ) %>% summarise(aisle)` aisles.
+
+##Plot of number of items ordered in each aisle
+```{r}
+items_per_aisle_plot = instacart %>%
+  count(aisle,name="aisle_count") %>%
+  filter(aisle_count>10000) %>%
+  arrange(desc(aisle)) %>%
+  ggplot(aes(x=aisle, y=aisle_count)) +
+  geom_bar(stat="identity", fill="blue")
+
+items_per_aisle_plot + coord_flip()
+```
