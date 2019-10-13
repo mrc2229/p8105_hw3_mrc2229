@@ -105,13 +105,15 @@ brfss_data = brfss_smart2010 %>%
   mutate(response = fct_relevel(response, "Poor", "Fair", "Good", "Very good", "Excellent"))
 ```
 
-##2002 states with 7 or more locations
+##States with 7 or more locations
 ```{r}
-locations_2002 = brfss_data %>%
-  filter(year == 2002) %>%
+state_locations = brfss_data %>%
+  filter(year == 2002 | year ==2010) %>%
   group_by(year, locationabbr) %>%
   summarise(number_of_state_locations = n_distinct(locationdesc)) %>%
   filter (number_of_state_locations >= 7)
 ```
 
-In 2002 there were `r locations_2002 %>% summarise(n_distinct(locationabbr))`` states with 7 or more locations.
+In `r state_locations %>% filter (year==2002) %>% summarise(n_distinct(locationabbr))` states had 7 or more locations.
+
+In `r state_locations %>% filter (year==2010) %>% summarise(n_distinct(locationabbr))` states had 7 or more locations.
