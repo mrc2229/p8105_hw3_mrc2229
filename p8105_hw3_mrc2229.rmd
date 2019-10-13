@@ -28,9 +28,14 @@ There are `r instacart %>% summarise(n_distinct(aisle))` aisles in total and the
 items_per_aisle_plot = instacart %>%
   count(aisle,name="aisle_count") %>%
   filter(aisle_count>10000) %>%
-  arrange(desc(aisle)) %>%
+  arrange (desc(aisle)) %>%
   ggplot(aes(x=aisle, y=aisle_count)) +
-  geom_bar(stat="identity", fill="blue")
+  geom_bar(stat="identity", fill="blue") +
+  labs(
+    title = "Ammount of Items Purchased in Each Aisle",
+    x = "Aisle",
+    y ="Ammount of Items Purchased"
+  )
 
 items_per_aisle_plot + coord_flip()
 ```
