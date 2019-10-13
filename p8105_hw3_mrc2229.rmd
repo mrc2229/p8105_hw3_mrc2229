@@ -9,6 +9,7 @@ output: github_document
 library (tidyverse)
 library(viridis)
 library (leaflet)
+library(knitr)
 ```
 
 #Problem 1
@@ -39,9 +40,19 @@ items_per_aisle_plot = instacart %>%
 
 items_per_aisle_plot + coord_flip()
 ```
+
 ##Table of most popular items in "baking ingrediant", "dog food care", and "packaged vegatables fruits"
 ```{r}
 most_popular_items = instacart %>%
   select(aisle,product_name) %>%
-  filter(aisle == c("baking ingrediants","dog food care","packaged vegatables fruits")) 
+  filter(aisle == c("baking ingredients","packaged vegetables fruits","dog food care")) %>%
+  group_by(aisle) %>%
+  count(product_name,name="product_count")%>%
+  mutate(product_count_rank = rank(desc(product_count))) %>% 
+  filter (product_count_rank < 4) %>%
+  arrange(aisle, product_count_rank) %>%
+  select(aisle, product_count_rank, product_name, product_count) %>%
+  kable()
+  
+most_popular_items
 ```
