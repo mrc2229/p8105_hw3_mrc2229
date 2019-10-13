@@ -15,7 +15,7 @@ library (leaflet)
 ##Bring in instacart data
 ```{r}
 library(p8105.datasets)
-data("instacart") 
+data("instacart")
 ```
 ##Examining the instacart data
-There are `r nrow (instacart)` observations in the instacart data set and `r ncol (instacart)` variables in the instacart data set. `r nmiss (instacart)`
+There are `r nrow (instacart)` observations in the instacart data set and `r ncol (instacart)` variables in the instacart data set. Some of the key variables are product_name, which shows the product purchased; aisle, which tells us the aisle the purchased item comes from; and order_id, which tells us the id of the person who ordered a certain item. So for instance we can see that person with order_id 1 got  `r instacart %>% filter (order_id==1, aisle_id==24) %>% summarise(n_distinct(product_name))` 

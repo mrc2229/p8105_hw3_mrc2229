@@ -1,0 +1,21 @@
+---
+title: "p8105_hw3_mrc2229"
+author: "Matthew Curran"
+date: "October 12, 2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+library (tidyverse)
+library(viridis)
+library (leaflet)
+```
+
+#Problem 1
+##Bring in instacart data
+```{r}
+library(p8105.datasets)
+data("instacart") 
+```
+##Examining the instacart data
+There are `r nrow (instacart)`observations in the instacart data set and `r ncol (instacart)` variables in the data set.
