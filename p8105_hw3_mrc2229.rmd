@@ -45,7 +45,11 @@ items_per_aisle_plot + coord_flip()
 ```{r}
 most_popular_items = instacart %>%
   select(aisle,product_name) %>%
-  filter(aisle == c("baking ingredients","packaged vegetables fruits","dog food care")) %>%
+  filter(
+    aisle == "baking ingredients"|
+    aisle == "packaged vegetables fruits"|
+    aisle == "dog food care"
+    ) %>%
   group_by(aisle) %>%
   count(product_name,name="product_count")%>%
   mutate(product_count_rank = rank(desc(product_count))) %>% 
@@ -55,4 +59,13 @@ most_popular_items = instacart %>%
   kable()
   
 most_popular_items
+```
+
+##Table showing day and time Pink Lady Apples and Coffee Ice Cream are ordered
+```{r}
+pink_lady_coffee = instacart %>%
+  filter(
+  product_name == "Pink Lady Apples"|
+  product_name == "Coffee Ice Cream"
+  )
 ```
